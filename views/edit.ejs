@@ -1,0 +1,19 @@
+<% include ./partials/header.ejs %>
+    <div class="w-full min-h-screen bg-zinc-800 flex items-center justify-center px-4 py-10 text-white">
+        <div class="w-full max-w-lg bg-zinc-900 p-8 rounded-lg shadow-lg">
+            <h1 class="text-2xl font-semibold text-center">Edit Profile</h1>
+            <hr class="opacity-10 mt-2 mb-4">
+            <form action="/updateprofile" method="post" enctype="multipart/form-data" class="space-y-4">
+                <input class="block w-full px-3 py-2 bg-gray-100 text-black rounded-md" type="text" name="username"
+                    placeholder="Username" value="<%= user.username %>">
+                <input class="block w-full px-3 py-2 mt-2 bg-gray-100 text-black rounded-md" type="email" name="email"
+                    placeholder="Email" value="<%= user.email %>">
+                <input class="block w-full px-3 py-2 mt-2 bg-gray-100 text-black rounded-md" type="file"
+                    name="profileImage">
+                <button type="submit"
+                    class="block w-full px-3 py-2 mt-2 bg-red-700 rounded-md text-white font-semibold">Update
+                    Profile</button>
+            </form>
+        </div>
+    </div>
+    <% include ./partials/footer.ejs %>
