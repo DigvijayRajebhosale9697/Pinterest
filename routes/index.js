@@ -21,7 +21,7 @@ router.get('/profile', isLoggedin, async (req, res) => {
     await userModel
       .findOne({ username: req.session.passport.user })
       .populate("posts")
-  res.render('profile', { user, nav: true })
+  res.render('profile', { user, nav: true, currentURL: '/profile' })
 })
 
 router.get('/show/posts', isLoggedin, async (req, res) => {
@@ -35,7 +35,7 @@ router.get('/show/posts', isLoggedin, async (req, res) => {
 router.get('/feed', isLoggedin, async (req, res) => {
   const user = await userModel.findOne({ username: req.session.passport.user })
   const posts = await postModel.find().populate("user")
-  res.render('feed', { user, posts, nav: true })
+  res.render('feed', { user, posts, nav: true, currentURL: '/feed' })
 })
 
 router.post('/createpost', isLoggedin, upload.single("postImage"), async (req, res) => {
@@ -121,9 +121,22 @@ router.post('/login', passport.authenticate('local', {
 router.get('/logout', (req, res, next) => {
   req.logout(function (err) {
     if (err) { return next(err); }
-    res.redirect('/');
+    res.redirect('/', { currentURL: '/logout' });
   });
 })
+
+router.get('/about', (req, res) => {
+  res.render('about', { nav: true,currentURL: '/about' });
+});
+
+router.get('/contact', (req, res) => {
+  res.render('contact', { nav: true,currentURL: '/contact' });
+});
+
+router.get('/privacy', (req, res) => {
+  res.render('privacy', { nav: true,currentURL: '/privacy' });
+});
+
 
 function isLoggedin(req, res, next) {
   if (req.isAuthenticated()) {
